@@ -24,7 +24,7 @@ services:
   frontend:
     build: ./frontend
     labels:
-      - "traefik.http.routers.frontend.rule=Host(${braindeadsprite.mooo.com})"
+      - "traefik.http.routers.frontend.rule=Host($${braindeadsprite.mooo.com})"
       - "traefik.http.routers.frontend.entrypoints=web"
     env_file:
       - .env
@@ -37,7 +37,7 @@ services:
   backend:
     build: ./backend
     labels:
-      - "traefik.http.routers.backend.rule=Host(${braindeadsprite.mooo.com}) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host($${braindeadsprite.mooo.com}) && PathPrefix(`/api`)"
       - "traefik.http.routers.backend.entrypoints=web"
     env_file:
       - .env
