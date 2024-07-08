@@ -35,8 +35,10 @@ services:
   backend:
     build: ./backend
     labels:
-      - "traefik.http.routers.backend.rule=Host(`braindeadsprite.mooo.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`braindeadsprite.mooo.com`) && (PathPrefix(`/api`) || PathPrefix(`/docs`) || PathPrefix(`/redoc`))"
       - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/api,/docs,/redoc"
+      - "traefik.http.routers.backend.middlewares=backend-stripprefix"
     env_file:
       - backend/.env
     networks:
@@ -62,6 +64,7 @@ services:
       - "8080:8080"
     networks:
       - web
+    restart: always
 
 volumes:
   pgdata:
