@@ -56,7 +56,7 @@ The Docker Compose file (`docker-compose.yml`) defines how the different parts o
 - **Environment Files**: Reads environment variables from `backend/.env` and `frontend/.env`.
 
 **Configuration**:
-```yaml
+```
 traefik:
   image: traefik:v2.5
   command:
@@ -73,6 +73,7 @@ traefik:
     - frontend/.env
   networks:
     - web
+```
 
 ### Frontend
 
@@ -82,7 +83,7 @@ traefik:
 - **Depends On**: Depends on the backend service to be running.
 
 **Configuration**:
-```yaml
+```
 frontend:
   build: ./frontend
   labels:
@@ -94,6 +95,7 @@ frontend:
     - web
   depends_on:
     - backend
+```
 
 ### Backend
 
@@ -107,7 +109,7 @@ frontend:
 
 **Configuration:**
 
-```yaml
+```
 backend:
   build: ./backend
   labels:
@@ -119,6 +121,7 @@ backend:
     - backend/.env
   depends_on:
     - postgres
+```
 
 ### PostgreSQL
 
@@ -134,7 +137,7 @@ backend:
 
 **Configuration:**
 
-```yaml
+```
 postgres:
   image: postgres:13
   environment:
@@ -146,6 +149,7 @@ postgres:
     - pgdata:/var/lib/postgresql/data
   networks:
     - web
+```
 
 ### Adminer
 
@@ -157,7 +161,7 @@ postgres:
 
 **Configuration:**
 
-```yaml
+```
 adminer:
   image: adminer
   ports:
@@ -165,6 +169,7 @@ adminer:
   networks:
     - web
   restart: always
+```
 
 ### Volumes
 
@@ -172,9 +177,10 @@ adminer:
 
 **Configuration:**
 
-```yaml
+```
 volumes:
   pgdata:
+```
 
 ### Networks
 
@@ -182,9 +188,10 @@ volumes:
 
 **Configuration:**
 
-```yaml
+```
 networks:
   web:
+```
 
 ### How to Use
 
@@ -192,23 +199,26 @@ networks:
 
 2. **Run Docker Compose**:
    Navigate to the directory containing your `docker-compose.yml` file and run:
-   ```yaml
-   docker-compose up -d
+   ```
+    docker-compose up -d
+   ```
 
-3. Access the Application:
+3. **Access the Application**:
     - Frontend: Open your browser and go to http://braindeadsprite.mooo.com.
     - Backend API: Access the API endpoints at http://braindeadsprite.mooo.com/api.
     - Adminer: Manage your database at http://<your_server_ip_or_domain>:8080.
 
-4. Stop Docker Compose: To stop all running services, run:
+4. **Stop Docker Compose**: To stop all running services, run:
 ```sh
 docker-compose down
+```
 
 ### Troubleshooting
 1. Traefik Dashboard: Access the Traefik dashboard at http://<your_server_ip_or_domain>:8090 to monitor and troubleshoot routing.
 2. Logs: Check the logs for any errors using:
 ```sh
 docker-compose logs
+```
 
 ## Getting Started with the Application
 
