@@ -15,7 +15,6 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     env_file:
-      - .env
       - backend/.env
       - frontend/.env
     networks:
@@ -24,10 +23,9 @@ services:
   frontend:
     build: ./frontend
     labels:
-      - "traefik.http.routers.frontend.rule=Host($${braindeadsprite.mooo.com})"
+      - "traefik.http.routers.frontend.rule=Host(`braindeadsprite.mooo.com`)"
       - "traefik.http.routers.frontend.entrypoints=web"
     env_file:
-      - .env
       - frontend/.env
     networks:
       - web
@@ -37,10 +35,9 @@ services:
   backend:
     build: ./backend
     labels:
-      - "traefik.http.routers.backend.rule=Host($${braindeadsprite.mooo.com}) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`braindeadsprite.mooo.com`) && PathPrefix(`/api`)"
       - "traefik.http.routers.backend.entrypoints=web"
     env_file:
-      - .env
       - backend/.env
     networks:
       - web
